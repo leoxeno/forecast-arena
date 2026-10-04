@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+message: "If you use forecast-arena in your work, please cite it as below."
+title: "forecast-arena: one rolling-origin protocol for every forecaster"
+type: software
+authors:
+  - family-names: Stavroglou
+    given-names: Stavros K.
+    orcid: "https://orcid.org/0000-0003-3931-0391"
+version: 0.1.0
+date-released: "2026-10-04"
+license: Apache-2.0
+repository-code: "https://github.com/leoxeno/forecast-arena"
+keywords:
+  - time series
+  - forecasting
+  - benchmark
+  - rolling origin
+  - foundation models
+  - dynamical systems

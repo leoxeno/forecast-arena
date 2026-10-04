@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "forecast-arena"
+version = "0.1.0"
+description = "One rolling-origin protocol for every forecaster: statistical, machine-learning, deep and foundation models scored side by side."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "Apache-2.0"}
+authors = [{name = "Stavros K. Stavroglou"}]
+keywords = [
+  "time series", "forecasting", "benchmark", "evaluation", "rolling origin",
+  "foundation models", "chaos", "dynamical systems", "reproducibility",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Scientific/Engineering",
+]
+dependencies = [
+  "numpy>=1.24",
+  "pandas>=2.0",
+  "scipy>=1.10",
+  "scikit-learn>=1.3",
+  "statsmodels>=0.14",
+  "tqdm>=4.65",
+]
+
+[project.optional-dependencies]
+stats = ["statsforecast>=1.7", "pmdarima>=2.0", "prophet>=1.1"]
+boosting = ["xgboost>=2.0", "lightgbm>=4.0", "catboost>=1.2"]
+deep = ["torch>=2.0", "darts>=0.28", "neuralforecast>=1.7", "pytorch-lightning>=2.0"]
+foundation = ["torch>=2.0", "chronos-forecasting>=1.2", "transformers>=4.40"]
+extras = ["sktime>=0.26", "gluonts>=0.14", "arch>=6.0"]
+all = ["forecast-arena[stats,boosting,deep,foundation,extras]"]
+dev = ["pytest>=7.4", "ruff>=0.4"]
+
+[project.scripts]
+forecast-arena = "forecast_arena.cli:main"
+
+[project.urls]
+Repository = "https://github.com/leoxeno/forecast-arena"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["ignore::DeprecationWarning", "ignore::FutureWarning"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
