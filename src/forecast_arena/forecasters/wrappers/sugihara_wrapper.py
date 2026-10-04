@@ -48,8 +48,8 @@ def _simplex_one_horizon(y_train: np.ndarray, E: int, tau: int, Tp: int) -> floa
     """
     try:
         import pyEDM
-    except ImportError:
-        return float('nan')
+    except ImportError as e:
+        raise ImportError("pyEDM is required for SugiharaSimplex and SugiharaSMap: pip install pyEDM") from e
 
     n = len(y_train)
     target = n - 1 + Tp
@@ -76,8 +76,8 @@ def _smap_one_horizon(y_train: np.ndarray, E: int, tau: int, theta: float,
     """Return S-map prediction Tp steps ahead from the last training point."""
     try:
         import pyEDM
-    except ImportError:
-        return float('nan')
+    except ImportError as e:
+        raise ImportError("pyEDM is required for SugiharaSimplex and SugiharaSMap: pip install pyEDM") from e
 
     n = len(y_train)
     target = n - 1 + Tp
