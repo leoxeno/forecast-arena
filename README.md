@@ -78,6 +78,87 @@ Twelve CPU models, two tasks, five rolling origins, about thirty seconds on a la
 
 On the Lorenz attractor over a 300-step horizon the nearest-neighbour lag model leads, which is Lorenz's own method of analogues, and the training mean beats every extrapolating classical model, because a bounded chaotic signal punishes any trend. On the sunspots, two automatic statsforecast models returned all-NaN forecasts on the last two origins; the record carries the error, the model is unranked for that task, and the leaderboard says so in the `n_errors` column.
 
+## Chaos versus the model zoo
+
+`examples/02_chaos_vs_foundation.py` runs a cross-section of the registry on three generated chaotic series and the monthly sunspot number (3,326 points from SILSO): the NumPy floor, lag-window learners, the Legendre-polynomial state-space reconstruction with local prediction, two automatic classical models, N-BEATS trained from scratch at every origin (darts, default epochs) and Chronos-Bolt used zero-shot (the `tiny` checkpoint). Five origins, CPU only, about twenty minutes, most of it the Legendre cross-validation and the N-BEATS training. The tables are the actual run.
+
+**mackey-glass** (tau = 17, 2,000 points, 300-step horizon)
+
+| rank | model | mae | mase | n_errors | fit_time_s |
+|---|---|---|---|---|---|
+| 1 | GibsonLegendre | 0.04726 | 1.693 | 0 | 49.72 |
+| 2 | KNN | 0.0526 | 1.886 | 0 | 0.0033 |
+| 3 | ExtraTrees | 0.05418 | 1.942 | 0 | 0.118 |
+| 4 | NBEATS | 0.07718 | 2.766 | 0 | 26.89 |
+| 5 | Chronos2 | 0.1319 | 4.725 | 0 | 0 |
+| 6 | Ridge | 0.1523 | 5.459 | 0 | 0.0211 |
+| 7 | StatsForecastAutoARIMA | 0.2023 | 7.253 | 0 | 0.414 |
+| 8 | Naive | 0.2445 | 8.77 | 0 | 0 |
+| 9 | StatsForecastAutoTheta | 0.2455 | 8.805 | 0 | 0.113 |
+| 10 | Drift | 0.2648 | 9.499 | 0 | 0 |
+
+**thomas-x** (Thomas attractor, 2,000 points, 300-step horizon)
+
+| rank | model | mae | mase | n_errors | fit_time_s |
+|---|---|---|---|---|---|
+| 1 | GibsonLegendre | 0.5566 | 7.369 | 0 | 48.52 |
+| 2 | ExtraTrees | 0.6127 | 8.122 | 0 | 0.128 |
+| 3 | KNN | 0.6205 | 8.233 | 0 | 0.0034 |
+| 4 | Ridge | 0.9069 | 12.04 | 0 | 0.0274 |
+| 5 | Chronos2 | 0.9849 | 13.06 | 0 | 0 |
+| 6 | NBEATS | 1.075 | 14.27 | 0 | 25.8 |
+| 7 | Naive | 1.719 | 22.72 | 0 | 0 |
+| 8 | StatsForecastAutoTheta | 1.731 | 22.88 | 0 | 0.110 |
+| 9 | Drift | 1.836 | 24.26 | 0 | 0 |
+| 10 | StatsForecastAutoARIMA | 6.334 | 85.41 | 0 | 0.519 |
+
+**henon-x** (Henon map, 2,000 points, 300-step horizon)
+
+| rank | model | mae | mase | n_errors | fit_time_s |
+|---|---|---|---|---|---|
+| 1 | Chronos2 | 0.5769 | 0.5881 | 0 | 0 |
+| 2 | StatsForecastAutoTheta | 0.5868 | 0.5982 | 0 | 0.259 |
+| 3 | StatsForecastAutoARIMA | 0.5935 | 0.6049 | 0 | 0.927 |
+| 4 | Ridge | 0.5943 | 0.6057 | 0 | 0.0203 |
+| 5 | ExtraTrees | 0.6147 | 0.6265 | 0 | 0.117 |
+| 6 | GibsonLegendre | 0.617 | 0.6288 | 0 | 49.67 |
+| 7 | KNN | 0.6304 | 0.6425 | 0 | 0.004 |
+| 8 | NBEATS | 0.6887 | 0.702 | 0 | 28.54 |
+| 9 | Naive | 0.7731 | 0.7876 | 0 | 0 |
+| 10 | Drift | 0.8554 | 0.8712 | 0 | 0 |
+
+**sunspots-monthly** (1749 to 2026, 3,326 points, 499-month horizon)
+
+| rank | model | mae | mase | n_errors | fit_time_s |
+|---|---|---|---|---|---|
+| 1 | Ridge | 49.6 | 2.542 | 0 | 0.037 |
+| 2 | ExtraTrees | 52.06 | 2.668 | 0 | 0.321 |
+| 3 | GibsonLegendre | 52.32 | 2.678 | 0 | 67.24 |
+| 4 | KNN | 53.87 | 2.76 | 0 | 0.0055 |
+| 5 | NBEATS | 59.24 | 3.036 | 0 | 47.39 |
+| 6 | Chronos2 | 64.19 | 3.289 | 0 | 0 |
+| 7 | Naive | 72.34 | 3.703 | 0 | 0 |
+| 8 | Drift | 78.84 | 4.035 | 0 | 0 |
+|  | StatsForecastAutoARIMA |  |  | 1 | 0.716 |
+|  | StatsForecastAutoTheta |  |  | 1 | 1.182 |
+
+**Across the four tasks**
+
+| model | tasks | mean_rank | median_rank | wins | podiums | worst_rank |
+|---|---|---|---|---|---|---|
+| GibsonLegendre | 4 | 2.75 | 2 | 2 | 3 | 6 |
+| ExtraTrees | 4 | 3 | 2.5 | 0 | 3 | 5 |
+| Ridge | 4 | 3.75 | 4 | 1 | 1 | 6 |
+| KNN | 4 | 4 | 3.5 | 0 | 2 | 7 |
+| Chronos2 | 4 | 4.25 | 5 | 1 | 1 | 6 |
+| NBEATS | 4 | 5.75 | 5.5 | 0 | 0 | 8 |
+| StatsForecastAutoTheta | 3 | 6.33 | 8 | 0 | 1 | 9 |
+| StatsForecastAutoARIMA | 3 | 6.67 | 7 | 0 | 1 | 10 |
+| Naive | 4 | 7.75 | 7.5 | 0 | 0 | 9 |
+| Drift | 4 | 9.25 | 9.5 | 0 | 0 | 10 |
+
+On the two continuous chaotic flows the state-space reconstruction leads and the lag-window learners follow within a few percent. On the Henon map, whose one-step rule is a quadratic, the zero-shot foundation model takes first place, one percent ahead of an automatic Theta model, with eight models inside a 7% band. On the sunspots a ridge regression on lagged values beats every deep and foundation entrant, and the two automatic statsforecast models are unranked after one non-finite origin each. A model's fit time is part of the record, so the cost of each rank is visible beside it.
+
 ## The protocol
 
 ```
