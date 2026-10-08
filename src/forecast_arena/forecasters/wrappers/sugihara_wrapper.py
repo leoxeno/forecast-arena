@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """
 Sugihara Simplex projection and S-map: empirical dynamic modelling baselines via pyEDM.
 

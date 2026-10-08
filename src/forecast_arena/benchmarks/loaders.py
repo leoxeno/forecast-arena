@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """Generator-based loaders for M-competition datasets.
 
 Yields one BenchmarkSeries at a time — never loads all series into memory.

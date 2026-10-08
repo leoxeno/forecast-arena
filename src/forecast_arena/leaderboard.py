@@ -88,7 +88,7 @@ def summarise(table: pd.DataFrame, rule: str = "mean_rank") -> pd.DataFrame:
     elif rule == "podium":
         out = out.sort_values(["wins", "podiums", "mean_rank"], ascending=[False, False, True])
     elif rule == "custom":
-        out["score"] = composite_score(table)
+        out["score"] = out["model"].map(composite_score(table))
         out = out.sort_values("score", ascending=False)
     else:
         raise ValueError(f"Unknown rule '{rule}'. Use 'mean_rank', 'podium' or 'custom'.")

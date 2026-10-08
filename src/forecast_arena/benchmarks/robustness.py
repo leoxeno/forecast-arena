@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """Multi-split robustness evaluation framework — PNAS/Nature/Science grade.
 
 Implements the statistical validation protocol for forecasting benchmarks:

@@ -65,3 +65,18 @@ def test_leaderboard_ranks_and_requires_complete_runs():
     assert summary.iloc[0]["model"] == "A" and summary.iloc[0]["wins"] == 1
     md = to_markdown(table[["model", "mae", "rank"]])
     assert md.splitlines()[0].startswith("| model |")
+
+
+def test_custom_summary_aligns_scores_by_model_name(monkeypatch):
+    table = pd.DataFrame({
+        "task": ["t", "t", "t"],
+        "model": ["B", "C", "A"],
+        "rank": [3.0, 1.0, 2.0],
+    })
+    scores = pd.Series([30.0, 10.0, 20.0], index=["C", "B", "A"])
+    monkeypatch.setattr("forecast_arena.leaderboard.composite_score", lambda table: scores)
+
+    summary = summarise(table, rule="custom")
+
+    assert summary["model"].tolist() == ["C", "A", "B"]
+    assert summary["score"].tolist() == [30.0, 20.0, 10.0]

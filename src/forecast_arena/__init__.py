@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """forecast-arena: one rolling-origin protocol for every forecaster."""
 
 from ._version import __version__

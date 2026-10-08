@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """
 Legendre-polynomial state-space reconstruction as a forecaster.
 

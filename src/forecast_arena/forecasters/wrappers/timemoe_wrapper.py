@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """
 forecasters/wrappers/timemoe_wrapper.py - Time-MoE foundation model.
 

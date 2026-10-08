@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """M-competition benchmark infrastructure.
 
 Loaders, baselines, and aggregation for standardized model evaluation.

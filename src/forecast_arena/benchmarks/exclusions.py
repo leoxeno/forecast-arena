@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """Models the default sweep leaves out, and why.
 
 The registry lists every wrapper that imports. The sweep roster is the registry

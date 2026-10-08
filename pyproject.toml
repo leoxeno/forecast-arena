@@ -48,6 +48,9 @@ forecast-arena = "forecast_arena.cli:main"
 [project.urls]
 Repository = "https://github.com/leoxeno/forecast-arena"
 
+[tool.setuptools]
+license-files = ["LICENSE", "NOTICE"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

@@ -1,3 +1,4 @@
+# Modified for forecast-arena: extracted and adapted from AION benchmark utilities, October 2026.
 """Benchmark analysis: one-call pipeline from JSONL to publication-ready tables.
 
 Usage:
