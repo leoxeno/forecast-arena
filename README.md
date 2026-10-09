@@ -303,7 +303,7 @@ Fetched series are downloaded on first use into `~/.cache/forecast-arena` (or `F
 
 ## Scaling to the full sweep
 
-The full study behind this harness ran the whole sweep roster over 17 tasks with up to 30 rolling origins per task, on an HPC cluster with A100 GPUs for the deep and foundation models and on CPU for everything else. The same code path runs on a laptop: pick fewer origins, fewer tasks or a library at a time, and let the JSONL files accumulate.
+The full study behind this harness ran the whole sweep roster over 17 tasks with 15 rolling origins per task, on an HPC cluster with A100 GPUs for the deep and foundation models and on CPU for everything else. The same code path runs on a laptop: pick fewer origins, fewer tasks or a library at a time, and let the JSONL files accumulate.
 
 ## Roadmap
 
